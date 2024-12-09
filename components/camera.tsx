@@ -155,7 +155,7 @@ export default function CameraComponent() {
             x * scaleX, 
             y * scaleY * yScalerPos, 
             width * scaleX, 
-            height * scaleY
+            height * scaleY * scaleFactor
           )
 
           face.landmarks.forEach((landmark) => {

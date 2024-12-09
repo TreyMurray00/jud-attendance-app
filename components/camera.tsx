@@ -86,6 +86,8 @@ export default function CameraComponent() {
       canvas.height = video.clientHeight;
 
       // Calculate scale factors
+      const scaleFactor = 2 // To scale size of bounding box
+      const yPosScaler = 0.85
       const scaleX = video.clientWidth / video.videoWidth;
       const scaleY = video.clientHeight / video.videoHeight;
 
@@ -112,7 +114,7 @@ export default function CameraComponent() {
           ];
 
           // Draw bounding box
-          ctx.strokeRect(x * scaleX, y * scaleY, width * scaleX, height * scaleY);
+          ctx.strokeRect(x * scaleX, y * scaleY * yPosScaler, width * scaleX, height * scaleY * scaleFactor);
 
           // Draw landmarks
           face.landmarks.forEach((landmark) => {

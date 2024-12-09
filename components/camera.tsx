@@ -133,7 +133,7 @@ export default function CameraComponent() {
       const scaleY = video.clientHeight / video.videoHeight
 
       try {
-        const predictions = await blazefaceModel.estimateFaces(video, false)as unknown as FaceDetection[]
+        const predictions = await blazefaceModel.estimateFaces(video, false) as unknown as FaceDetection[]
         setPredictions(predictions)
 
         ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -155,7 +155,7 @@ export default function CameraComponent() {
             x * scaleX, 
             y * scaleY * yScalerPos, 
             width * scaleX, 
-            height * scaleY * scaleFactor
+            height * scaleY
           )
 
           face.landmarks.forEach((landmark) => {
@@ -170,7 +170,9 @@ export default function CameraComponent() {
         }
 
         setCroppedFaces(newCroppedFaces)
-        setDebugInfo(`Detected ${predictions.length} faces at ${new Date().toLocaleTimeString()}. Scaling: yScalerPos=${yScalerPos}, scaleFactor=${scaleFactor}`)
+        setDebugInfo(`Detected ${predictions.length} faces at ${new Date().toLocaleTimeString()}. Scaling: yScalerPos=${yScalerPos}, scaleFactor=${scaleFactor}
+Predictions:
+${JSON.stringify(predictions, null, 2)}`)
 
       } catch (err) {
         console.error('Error during face detection:', err)
@@ -247,6 +249,7 @@ export default function CameraComponent() {
           <div className="bg-gray-100 p-4 rounded-lg">
             <h2 className="text-lg font-semibold mb-2">Debug Information:</h2>
             <pre className="whitespace-pre-wrap text-xs max-h-40 overflow-y-auto">{debugInfo}</pre>
+            <pre className="whitespace-pre-wrap text-xs max-h-40 overflow-y-auto">{JSON.stringify(predictions)}</pre>
           </div>
         </div>
       </div>
